@@ -15,8 +15,6 @@
  */
 package com.tipplerow.jam.bravais;
 
-import java.util.List;
-
 import com.tipplerow.jam.math.Point;
 
 import org.testng.annotations.Test;

@@ -17,8 +17,8 @@ package com.tipplerow.jam.bravais;
 
 import java.util.List;
 
+import com.tipplerow.jam.collect.JamLists;
 import com.tipplerow.jam.math.Point;
-import com.tipplerow.jam.util.ListUtil;
 import com.tipplerow.jam.vector.VectorView;
 
 /**
@@ -26,7 +26,7 @@ import com.tipplerow.jam.vector.VectorView;
  *
  * @author Scott Shaffer
  */
-public interface UnitCell {
+interface UnitCell {
     /**
      * Returns a one-dimensional unit cell with a given length.
      *
@@ -36,7 +36,7 @@ public interface UnitCell {
      *
      * @throws IllegalArgumentException unless the length is positive.
      */
-    public static UnitCell linear(double length) {
+    static UnitCell linear(double length) {
         return LinearUnitCell.create(length);
     }
 
@@ -51,7 +51,7 @@ public interface UnitCell {
      *
      * @throws IllegalArgumentException unless the side length is positive.
      */
-    public static UnitCell hexagonal(double side) {
+    static UnitCell hexagonal(double side) {
         return new HexagonalUnitCell(side);
     }
 
@@ -66,7 +66,7 @@ public interface UnitCell {
      *
      * @throws IllegalArgumentException unless the side length is positive.
      */
-    public static UnitCell square(double side) {
+    static UnitCell square(double side) {
         return new SquareUnitCell(side);
     }
 
@@ -80,7 +80,7 @@ public interface UnitCell {
      *
      * @throws IllegalArgumentException unless the side length is positive.
      */
-    public static UnitCell cubic(double side) {
+    static UnitCell cubic(double side) {
         return new SimpleCubicUnitCell(side);
     }
 
@@ -95,7 +95,7 @@ public interface UnitCell {
      *
      * @throws IllegalArgumentException unless the side length is positive.
      */
-    public static UnitCell BCC(double side) {
+    static UnitCell BCC(double side) {
         return new BCCUnitCell(side);
     }
 
@@ -110,7 +110,7 @@ public interface UnitCell {
      *
      * @throws IllegalArgumentException unless the side length is positive.
      */
-    public static UnitCell FCC(double side) {
+    static UnitCell FCC(double side) {
         return new FCCUnitCell(side);
     }
 
@@ -119,7 +119,7 @@ public interface UnitCell {
      *
      * @return the number of nearest neighbors for each lattice site.
      */
-    public default int countNeighbors() {
+    default int countNeighbors() {
         return viewNeighborTranslationVectors().size();
     }
 
@@ -128,7 +128,7 @@ public interface UnitCell {
      *
      * @return the dimensionality of this unit cell.
      */
-    public abstract int dimensionality();
+    int dimensionality();
 
     /**
      * Finds the nearest neighbors for a given unit cell location.
@@ -138,14 +138,14 @@ public interface UnitCell {
      * @return the indexes of the neighboring cells nearest to the
      * cell at the specified location.
      */
-    public abstract List<UnitIndex> getNeighbors(UnitIndex index);
+    List<UnitIndex> getNeighbors(UnitIndex index);
 
     /**
      * Returns the Euclidean distance to each nearest neighbor.
      *
      * @return the Euclidean distance to each nearest neighbor.
      */
-    public abstract double getNeighborDistance();
+    double getNeighborDistance();
 
     /**
      * Finds the discrete unit index of the unit cell containing a
@@ -159,7 +159,7 @@ public interface UnitCell {
      * @throws IllegalArgumentException unless the dimensionality of
      * the input point matches the dimensionality of this unit cell.
      */
-    public abstract UnitIndex indexOf(Point point);
+    UnitIndex indexOf(Point point);
 
     /**
      * Translates a discrete unit index into its corresponding
@@ -173,7 +173,7 @@ public interface UnitCell {
      * @throws IllegalArgumentException unless the dimensionality of
      * the input index matches the dimensionality of this unit cell.
      */
-    public abstract Point pointAt(UnitIndex index);
+    Point pointAt(UnitIndex index);
 
     /**
      * Selects one neighboring cell at random (with equal probability)
@@ -184,8 +184,8 @@ public interface UnitCell {
      * @return the index of one neighboring cell selected at random
      * (with equal probability) from the set of all nearest neighbors.
      */
-    public default UnitIndex selectNeighbor(UnitIndex index) {
-        return index.plus(ListUtil.select(viewNeighborTranslationVectors()));
+    default UnitIndex selectNeighbor(UnitIndex index) {
+        return index.plus(JamLists.select(viewNeighborTranslationVectors()));
     }
 
     /**
@@ -195,7 +195,7 @@ public interface UnitCell {
      * @return a read-only view of the primitive (basis) vectors for
      * this unit cell.
      */
-    public abstract List<VectorView> viewBasis();
+    List<VectorView> viewBasis();
 
     /**
      * Returns a read-only view of the translation vectors that define
@@ -204,5 +204,5 @@ public interface UnitCell {
      * @return a read-only view of the translation vectors that define
      * the nearest neighbors.
      */
-    public abstract List<UnitIndex> viewNeighborTranslationVectors();
+    List<UnitIndex> viewNeighborTranslationVectors();
 }

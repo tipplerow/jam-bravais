@@ -26,6 +26,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
 import com.tipplerow.jam.math.Point;
+
 import lombok.Getter;
 
 /**

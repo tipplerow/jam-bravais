@@ -24,14 +24,14 @@ import static org.testng.Assert.*;
 
 public class PopulationTest {
     @Test public void testBasic() {
-        Lattice lattice = Lattice.parse("SQUARE; 1.0; 3, 4");
+        Lattice lattice = Lattice.create(UnitCell.square(1.0), Period.box(3, 4));
         Population<String> population = Population.empty(lattice);
 
-        assertEquals(2, lattice.period().dimensionality());
-        assertEquals(3, lattice.period().period(0));
-        assertEquals(4, lattice.period().period(1));
+        assertEquals(2, lattice.getPeriod().dimensionality());
+        assertEquals(3, lattice.getPeriod().period(0));
+        assertEquals(4, lattice.getPeriod().period(1));
 
-        assertEquals(2, lattice.unitCell().dimensionality());
+        assertEquals(2, lattice.getUnitCell().dimensionality());
 
         Point pointA  = Point.at( 4.0, 10.0);
         Point pointB  = Point.at( 4.0, 10.0);
@@ -505,7 +505,7 @@ public class PopulationTest {
     }
 
     @Test public void testFillCollection() {
-        Lattice lattice = Lattice.parse("SQUARE; 1.0; 3, 4");
+        Lattice lattice = Lattice.create(UnitCell.square(1.0), Period.box(3, 4));
         Population<Integer> population = Population.empty(lattice);
 
         List<Integer> occupants = List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
@@ -543,7 +543,7 @@ public class PopulationTest {
 
     @Test(expectedExceptions = RuntimeException.class)
     public void testFillInvalid1() {
-        Lattice lattice = Lattice.parse("SQUARE; 1.0; 3, 4");
+        Lattice lattice = Lattice.create(UnitCell.square(1.0), Period.box(3, 4));
         Population<Integer> population = Population.empty(lattice);
 
         List<Integer> occupants = List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
@@ -552,7 +552,7 @@ public class PopulationTest {
 
     @Test(expectedExceptions = RuntimeException.class)
     public void testFillInvalid2() {
-        Lattice lattice = Lattice.parse("SQUARE; 1.0; 3, 4");
+        Lattice lattice = Lattice.create(UnitCell.square(1.0), Period.box(3, 4));
         Population<Integer> population = Population.empty(lattice);
 
         List<Integer> occupants = List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
@@ -560,7 +560,7 @@ public class PopulationTest {
     }
 
     @Test public void testUnoccupiedNeighbors() {
-        Lattice lattice = Lattice.parse("SQUARE; 1.0; 5, 4");
+        Lattice lattice = Lattice.create(UnitCell.square(1.0), Period.box(5, 4));
         Population<String> population = Population.empty(lattice);
 
         population.place("A", UnitIndex.at(1, 0));
@@ -589,7 +589,7 @@ public class PopulationTest {
     }
 
     @Test public void testLinear() {
-        Lattice lattice = Lattice.parse("LINEAR; 2.0; 5");
+        Lattice lattice = Lattice.create(UnitCell.linear(2.0), Period.linear(5));
         Population<String> population = Population.empty(lattice);
 
         population.place("A", UnitIndex.at(0));

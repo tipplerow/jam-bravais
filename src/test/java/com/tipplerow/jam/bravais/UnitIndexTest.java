@@ -72,10 +72,10 @@ public class UnitIndexTest {
         for (int k = 1; k < ordered.size(); ++k)
             assertTrue(ordered.get(k).compareTo(ordered.get(k - 1)) > 0);
 
-        List<UnitIndex> shuffled = new ArrayList<UnitIndex>(ordered);
+        List<UnitIndex> shuffled = new ArrayList<>(ordered);
         Collections.shuffle(shuffled);
 
-        List<UnitIndex> sorted = new ArrayList<UnitIndex>(shuffled);
+        List<UnitIndex> sorted = new ArrayList<>(shuffled);
         Collections.sort(sorted);
 
         assertEquals(ordered, sorted);

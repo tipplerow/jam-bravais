@@ -25,10 +25,12 @@ import static org.testng.Assert.*;
 
 public class LatticeTest {
     @Test public void testLinear() {
-        Lattice lattice = Lattice.parse("LINEAR; 2.0; 5");
+        Period period = Period.linear(5);
+        UnitCell unitCell = UnitCell.linear(2.0);
+        Lattice lattice = Lattice.create(unitCell, period);
 
-        assertEquals(1, lattice.period().dimensionality());
-        assertEquals(5, lattice.period().period(0));
+        assertEquals(1, lattice.getPeriod().dimensionality());
+        assertEquals(5, lattice.getPeriod().period(0));
         assertEquals(5, lattice.countSites());
 
         Point pointM = Point.at(-2.0);
@@ -82,11 +84,13 @@ public class LatticeTest {
     }
 
    @Test public void testSquare() {
-        Lattice lattice = Lattice.parse("SQUARE; 1.0; 3, 4");
+        Period period = Period.box(3, 4);
+        UnitCell unitCell = UnitCell.square(1.0);
+        Lattice lattice = Lattice.create(unitCell, period);
 
-        assertEquals(2, lattice.period().dimensionality());
-        assertEquals(3, lattice.period().period(0));
-        assertEquals(4, lattice.period().period(1));
+        assertEquals(2, lattice.getPeriod().dimensionality());
+        assertEquals(3, lattice.getPeriod().period(0));
+        assertEquals(4, lattice.getPeriod().period(1));
         assertEquals(12, lattice.countSites());
 
         Point pointA  = Point.at( 4.0, 10.0);
@@ -113,7 +117,7 @@ public class LatticeTest {
         assertEquals(Point.at(0.0, 1.0), lattice.imageOf(pointD));
         assertEquals(Point.at(2.0, 3.0), lattice.imageOf(pointD2));
 
-        lattice = Lattice.parse("SQUARE; 0.5; 2, 3");
+        lattice = Lattice.create(UnitCell.square(0.5), Period.box(2, 3));
 
         Point p00 = Point.at(0.0, 0.0);
         Point p10 = Point.at(0.5, 0.0);
@@ -136,7 +140,7 @@ public class LatticeTest {
         assertFalse(lattice.contains(Point.at(-1.0, 0.0)));
         assertFalse(lattice.contains(Point.at( 0.0, 3.0)));
 
-        lattice = Lattice.parse("SQUARE; 2.5; 8, 4");
+        lattice = Lattice.create(UnitCell.square(2.5), Period.box(8, 4));
 
         Map<UnitIndex, List<UnitIndex>> neighbors =
             lattice.mapIndexNeighbors(CoordType.ABSOLUTE);
