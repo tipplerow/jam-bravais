@@ -124,8 +124,4 @@ public class UnitCellTest {
 
         validateNeighbors(cell);
     }
-
-    public static void main(String[] args) {
-        org.junit.runner.JUnitCore.main("jam.bravais.BravaisUnitCellTest");
-    }
 }

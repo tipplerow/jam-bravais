@@ -92,8 +92,4 @@ public class UnitIndexTest {
         assertEquals(UnitIndex.at(0, 0), UnitIndex.origin(2));
         assertEquals(UnitIndex.at(0, 0, 0), UnitIndex.origin(3));
     }
-
-    public static void main(String[] args) {
-        org.junit.runner.JUnitCore.main("jam.bravais.BravaisUnitIndexTest");
-    }
 }
