@@ -26,7 +26,7 @@ import com.tipplerow.jam.vector.VectorView;
  *
  * @author Scott Shaffer
  */
-interface UnitCell {
+public interface UnitCell {
     /**
      * Returns a one-dimensional unit cell with a given length.
      *
